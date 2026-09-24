@@ -4,6 +4,7 @@ import com.mycompany.app.MemoryManagmentUnit.MemoryManagmentUnit;
 import com.mycompany.app.pageTableEntry.PageTableEntry;
 import com.mycompany.app.pageTableEntry.PteImpl;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -56,8 +57,23 @@ public class ProcessImpl implements Process{
       System.out.println("Process finished his life time!");
       return;
     }
-  }
+    int virtalPageId;
+    Random rand = new Random();
 
+    int randomNum = ThreadLocalRandom.current().nextInt(1, 101);
+    if (!this.workingSet.isEmpty() && randomNum <= 90){
+        int casino = rand.nextInt(this.workingSet.size());
+        virtalPageId = this.workingSet.get(casino);
+    } else {
+        virtalPageId = rand.nextInt(this.pageTableEntry.length);
+    }
+
+    try {
+      this.mmu.Access(this.id, this.pageTableEntry, virtalPageId);
+    } catch (Exception e){
+      System.err.println("Помилка доступу: " + e.getMessage());
+    }
+  }
   public void InitWorkingSet(int numberOfPage) throws Exception{
     if (numberOfPage > pageTableEntry.length){
       throw new Exception("Imposible situation!");
