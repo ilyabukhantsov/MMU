@@ -11,7 +11,7 @@ import java.util.Random;
 public class ProcessImpl implements Process{
   private int id;
   private int lifeLeft;
-  private PteImpl[] pageTableEntry;
+  private PageTableEntry[] pageTableEntry;
   private ArrayList<Integer> workingSet = new ArrayList<>();
   private MemoryManagmentUnit mmu;
 
@@ -21,7 +21,7 @@ public class ProcessImpl implements Process{
     } catch (Exception e){
       System.err.println("Помилка ініціалізації: " + e.getMessage());
     }
-    PteImpl[] pte = new PteImpl[numberOfPages];
+    PageTableEntry[] pte = new PteImpl[numberOfPages];
     this.mmu = mmu;
     for (int i = 0; i < numberOfPages; i++) {
       pte[i] = new PteImpl(i);
