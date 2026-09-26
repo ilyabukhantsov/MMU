@@ -21,7 +21,11 @@ public class mmuImpl implements MemoryManagmentUnit{
         if (!tableEntry.isPresence()) {
             System.out.printf("PAGE FAULT! Процесс %d, Віртуальна сторінка %d\n", PID, virtualPageNumber);
             
+            try {
             Kernel.handlePageFault(PID, pte, virtualPageNumber);
+            } catch (Exception err){
+              throw new Exception("Не вийшло опрацювати PAGE FAULT!");
+            }
         }
 
         tableEntry.setReference(true);
