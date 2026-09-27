@@ -1,22 +1,26 @@
 package com.mycompany.app.pageTableEntry;
 
-public class PteImpl implements PageTableEntry{
+public class PteImpl implements PageTableEntry {
+    private int virtualPageNumber;
+    private int physicalPageNumber;
     private boolean presence;
     private boolean reference;
     private boolean modification;
     private boolean inSaved;
-    private int physicalPageNumber;
 
-    public PteImpl(int physicalPageNumber) {
+    public PteImpl(int virtualPageNumber) {
+        this.virtualPageNumber = virtualPageNumber;
+        this.physicalPageNumber = -1;
         this.presence = false;
         this.reference = false;
         this.modification = false;
         this.inSaved = false;
-        this.physicalPageNumber = physicalPageNumber;
     }
 
+    public int getVirtualPageNumber() {
+        return virtualPageNumber;
+    }
 
-    //Geters and Setters
     public boolean isPresence() {
         return presence;
     }
@@ -56,6 +60,4 @@ public class PteImpl implements PageTableEntry{
     public void setPhysicalPageNumber(int physicalPageNumber) {
         this.physicalPageNumber = physicalPageNumber;
     }
-
-
 }

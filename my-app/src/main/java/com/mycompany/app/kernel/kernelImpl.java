@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.ArrayDeque;
 
-public class kernelImpl implements kernel {
+public class kernelImpl implements Kernel {
   private String algorithm;
   private Deque<Process> processes;
   private List<FrameImpl> frames;
@@ -48,6 +48,7 @@ public class kernelImpl implements kernel {
       Process currentProcess = processes.pop(); 
       
       try {
+        //FIX: Add total access
         currentProcess.Work();
       } catch (Exception e){
         System.err.println("Не вийшло опрацювати процесс" + e.getMessage());
@@ -57,9 +58,11 @@ public class kernelImpl implements kernel {
         System.out.println("--- Process " + currentProcess.GetId() + " FINISHED ---");
       }
     }
-
     System.out.println("\n=== Симуляцію закінченно ===");
+    // TODO: Make Memory Free
+    // void makeMemoryFree();
 
+    // TODO: Return Result
     return null;
   }
   public void handlePageFault(int pid, PageTableEntry[] pte, int virtalPage) throws Exception{
@@ -67,5 +70,11 @@ public class kernelImpl implements kernel {
       throw new IllegalArgumentException( "Не правильна сторінка для  " + virtalPage + " для процессу з " + pid);
     }
     this.PageFault++;
+    //-- TODO: Select Frame Implementation
+    // void selectFrame();
+
+    // TODO: swap our neccery frames
+    // void swapFrame();
   }
+  
 }
