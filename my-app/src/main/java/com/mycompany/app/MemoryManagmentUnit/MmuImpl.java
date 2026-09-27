@@ -20,7 +20,6 @@ public class MmuImpl implements MemoryManagmentUnit {
 
         PageTableEntry tableEntry = pte[virtualPageNumber];
 
-        // Якщо сторінки немає в оперативній пам'яті — викликаємо Page Fault
         if (!tableEntry.isPresence()) {
             System.out.printf("PAGE FAULT! Процес %d, Віртуальна сторінка %d\n", PID, virtualPageNumber);
 

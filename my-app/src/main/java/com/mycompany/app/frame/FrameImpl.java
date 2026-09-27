@@ -1,6 +1,6 @@
 package com.mycompany.app.frame;
 
-public class FrameImpl implements frame{
+public class FrameImpl implements Frame{
   private int ownerID;
   private int frameID;
   private int virtualPageNumberId;

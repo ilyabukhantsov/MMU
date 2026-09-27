@@ -45,6 +45,10 @@ public class ProcessImpl implements Process{
       return false;
     }
   }
+  public PageTableEntry[] getPageTableEntry() {
+        return this.pageTableEntry;
+    }
+
   public void LessLifeLeft(int number) throws Exception{
     if (this.lifeLeft <= 0){
       throw new Exception("No life left!");
