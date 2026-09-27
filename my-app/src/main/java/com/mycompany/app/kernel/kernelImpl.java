@@ -3,6 +3,7 @@ package com.mycompany.app.kernel;
 import com.mycompany.app.frame.*;
 import com.mycompany.app.process.Process;
 import com.mycompany.app.MemoryManagmentUnit.MemoryManagmentUnit;
+import com.mycompany.app.pageTableEntry.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -46,8 +47,25 @@ public class kernelImpl implements kernel {
     while (!processes.isEmpty()) {
       Process currentProcess = processes.pop(); 
       
+      try {
+        currentProcess.Work();
+      } catch (Exception e){
+        System.err.println("Не вийшло опрацювати процесс" + e.getMessage());
+      }
+
+      if (!currentProcess.isLifeLeft()){
+        System.out.println("--- Process " + currentProcess.GetId() + " FINISHED ---");
+      }
     }
-    
+
+    System.out.println("\n=== Симуляцію закінченно ===");
+
     return null;
+  }
+  public void handlePageFault(int pid, PageTableEntry[] pte, int virtalPage) throws Exception{
+    if (pid < 0 || virtalPage < 0 || pte[virtalPage] == null){
+      throw new IllegalArgumentException( "Не правильна сторінка для  " + virtalPage + " для процессу з " + pid);
+    }
+    this.PageFault++;
   }
 }

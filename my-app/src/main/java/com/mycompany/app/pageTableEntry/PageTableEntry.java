@@ -1,8 +1,12 @@
 package com.mycompany.app.pageTableEntry;
 
 public interface PageTableEntry{
-  public void setReference(boolean reference);
-  public void setModification(boolean reference);
-  public boolean isPresence();
-  public boolean isModification();
+  void setReference(boolean reference);
+  void setModification(boolean reference);
+  boolean isPresence();
+  boolean isModification();
+  void setPresence(boolean presence);
+  void setPhysicalPageNumber(int physicalPageNumber);
+  
+
 }
