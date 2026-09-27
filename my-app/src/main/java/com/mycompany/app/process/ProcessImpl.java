@@ -49,7 +49,7 @@ public class ProcessImpl implements Process{
     if (this.lifeLeft <= 0){
       throw new Exception("No life left!");
     }
-    this.lifeLeft--;
+    this.lifeLeft -= number;
   }
 
   public void Work() throws Exception{
@@ -72,10 +72,11 @@ public class ProcessImpl implements Process{
       this.mmu.Access(this.id, this.pageTableEntry, virtalPageId);
     } catch (Exception e){
       System.err.println("Помилка доступу: " + e.getMessage());
+      throw e;
     }
   }
-  public void InitWorkingSet(int numberOfPage) throws Exception{
-    if (numberOfPage > pageTableEntry.length){
+  public void InitWorkingSet(int numberOfPage) throws Exception {
+    if (numberOfPage > pageTableEntry.length) {
       throw new Exception("Imposible situation!");
     }
     this.workingSet.clear();
